@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Account{% endblock title %}
+
+{% block body %}
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="container w-50">
+        <div class="card bg-dark text-white shadow-lg">
+            <div class="card-header bg-danger text-center">
+                <h2 class="mb-0">ACCOUNT INFO</h2>
+            </div>
+            <div class="card-body d-flex align-items-center justify-content-evenly">
+                <div class="">
+                    <div class="mb-3">
+                        <h5 class="text-danger">Full Name</h5>
+                        <p class="mb-0">{{ customer[3] }} {{ customer[4] }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="text-danger">Username</h5>
+                        <p class="mb-0">{{ customer[2] }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="text-danger">Email</h5>
+                        <p class="mb-0">{{ customer[7] }}</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-3">
+                        <h5 class="text-danger">Password</h5>
+                        <p class="mb-0">{{ customer[5] }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="text-danger">Phone No</h5>
+                        <p class="mb-0">{{ customer[1] }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="text-danger">Address</h5>
+                        <p class="mb-0">{{ customer[6] }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-danger text-center">
+                <small>Thank you for updating your account info!</small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

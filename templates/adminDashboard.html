@@ -1,0 +1,174 @@
+{% extends 'adminBase.html' %}
+{% block title %}Admin Dashboard{% endblock title %}
+
+{% block body %}
+<h2 class="mb-4 text-danger">Dashboard Overview</h2>
+<div class="row g-4">
+    <!-- Total Orders Card -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card bg-danger text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-bag-fill me-2"></i>Total Orders</h5>
+                <p class="card-text display-4">{{ total_orders }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Total Customers Card -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card bg-primary text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-people-fill me-2"></i>Total Customers</h5>
+                <p class="card-text display-4">{{ total_customers }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Total Riders Card -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card bg-warning text-dark h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-bicycle me-2"></i>Total Riders</h5>
+                <p class="card-text display-4">{{ total_riders }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Total Menu Items Card -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card bg-success text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-menu-button-wide-fill me-2"></i>Total Menu Items</h5>
+                <p class="card-text display-4">{{ total_menu_items }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mt-4">
+    <!-- Line Chart -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="bi bi-graph-up me-2"></i>Monthly Order Trends</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="orderChart" style="height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- Pie Chart -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-pie-chart-fill me-2"></i>Order Status Distribution</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="statusPieChart" style="height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Orders -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0"><i class="bi bi-clock-history me-2"></i>Recent Orders</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Customer</th>
+                                <th>Item</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in recent_orders %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ order[1] }}</td>
+                                <td>{{ order[2] }}</td>
+                                <td>Rs. {{ order[3] }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'success' if order[4] == 'Delivered' else 'warning' }}">
+                                        {{ order[4] }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Line Chart
+    const monthlyOrdersData = {{ monthly_orders | tojson }};
+    const labels = monthlyOrdersData.map(item => item[0]);
+    const data = monthlyOrdersData.map(item => item[1]);
+
+    const ctx = document.getElementById('orderChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Monthly Orders',
+                data: data,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Pie Chart
+    const statusCounts = {
+        'Issued': 0,
+        'Pending': 0,
+        'Delivered': 0
+    };
+    {% for order in recent_orders %}
+        statusCounts['{{ order[4] }}']++;
+    {% endfor %}
+
+    const pieCtx = document.getElementById('statusPieChart').getContext('2d');
+    new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(statusCounts),
+            datasets: [{
+                data: Object.values(statusCounts),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(75, 192, 192, 0.8)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
+{% endblock scripts %}

@@ -1,0 +1,33 @@
+{% extends 'adminBase.html' %}
+{% block title %}Admin{% endblock title %}
+
+{% block body %}
+<div class="d-flex justify-content-between my-4">
+    <a href="{{ url_for('addFood') }}" class="btn btn-danger">Tambah Makanan</a>
+    <a href="{{ url_for('deleteAll') }}" class="btn btn-danger">Delete All</a>
+</div>
+
+<div class="row">
+    {% for i in range(foods|length) %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <img src="/static/images/{{ foods[i][1] }}" class="card-img-top" alt="{{ foods[i][3] }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ foods[i][3] }}</h5>
+                <p class="card-text">Harga: Rp. {{ foods[i][2] }}</p>
+                {% for j in range(foodnosAndRates|length) %}
+                {% if foods[i][0] == foodnosAndRates[j][0] %}
+                <p class="card-text text-muted">Rating: {{ "%.2f"|format(foodnosAndRates[j][1]) }} ({{
+                    foodnosAndRates[j][2] }})</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <a href="/edit/{{ foods[i][0] }}" class="btn btn-primary">Edit</a>
+                <a href="/delete/{{ foods[i][0] }}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock body %}

@@ -1,0 +1,188 @@
+{% extends 'riderHome.html' %}
+{% block title %}All Available Orders{% endblock title %}
+
+{% block body %}
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-primary fw-bold mb-0">Available Orders</h1>
+        <div class="badge bg-primary px-3 py-2 rounded-pill">
+            <i class="fas fa-motorcycle me-2"></i>Rider Dashboard
+        </div>
+    </div>
+    
+    {% if orderDetails|length != 0 %}
+        <div class="row g-4">
+            {% for order in orderDetails %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 bg-darker border-0 rounded-4 shadow-hover">
+                    <div class="card-header border-0 bg-gradient position-relative overflow-hidden p-3">
+                        <div class="d-flex justify-content-between align-items-center position-relative z-2">
+                            <h5 class="mb-0 fw-bold text-white">Order #{{ order[2] }}</h5>
+                            <span class="badge bg-info rounded-pill px-3">{{ order[10] }}</span>
+                        </div>
+                        <div class="header-blur"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="customer-info mb-4">
+                            <h6 class="text-primary mb-2">
+                                <i class="fas fa-user-circle me-2"></i>{{ order[0] }} {{ order[1] }}
+                            </h6>
+                        </div>
+                        
+                        <div class="order-details p-3 bg-darker rounded-3 mb-4">
+                            <div class="d-flex gap-3">
+                                <div class="order-image">
+                                    <img src="/static/images/{{ order[5] }}" 
+                                         alt="{{ order[3] }}" 
+                                         class="rounded-3 img-thumbnail bg-dark border-dark"
+                                         style="width: 100px; height: 100px; object-fit: cover;">
+                                </div>
+                                <div class="order-info flex-grow-1">
+                                    <p class="mb-2 d-flex align-items-center">
+                                        <i class="fas fa-shopping-bag text-primary me-2"></i>
+                                        <span class="text-white">{{ order[3] }}</span>
+                                    </p>
+                                    <p class="mb-2 d-flex align-items-center">
+                                        <i class="fas fa-tag text-success me-2"></i>
+                                        <span class="text-white">{{ order[4] }}</span>
+                                    </p>
+                                    <p class="mb-0 d-flex align-items-center">
+                                        <i class="fas fa-boxes text-warning me-2"></i>
+                                        <span class="text-white">Quantity: {{ order[7] }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-meta">
+                            <p class="mb-2 d-flex align-items-center">
+                                <i class="far fa-calendar-alt text-info me-2"></i>
+                                <span class="text-white">Ordered: {{ order[6] }}</span>
+                            </p>
+                            <p class="mb-0 d-flex align-items-center">
+                                <i class="fas fa-receipt text-primary me-2"></i>
+                                <span class="text-white">Total: {{ order[8] }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-darker border-0 p-3">
+                        <div class="d-flex gap-2">
+                            <a href="/choose_orderMarked/{{ order[2] }}" 
+                               class="btn btn-primary flex-grow-1 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Choose Order
+                            </a>
+                            <a href="/update_orderMarked_Rider/{{ order[2] }}" 
+                               class="btn btn-success flex-grow-1 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-truck me-2"></i>
+                                Mark Delivered
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-primary border-0 rounded-4 shadow-sm" role="alert">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-info-circle fa-lg me-3"></i>
+                <span>No orders available at the moment. Check back soon!</span>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .bg-darker {
+        background-color: #1a1a1a;
+    }
+    
+    .card {
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .shadow-hover {
+        transition: box-shadow 0.2s ease-in-out;
+    }
+    
+    .shadow-hover:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3) !important;
+        transform: translateY(-5px);
+    }
+    
+    .card-header {
+        background: linear-gradient(45deg, #f44336, #ff7043);
+    }
+    
+    .header-blur {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+    
+    .btn {
+        padding: 0.6rem 1rem;
+        font-weight: 500;
+        text-transform: none;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-primary {
+        background-color: #f44336;
+        border-color: #f44336;
+    }
+    
+    .btn-primary:hover {
+        background-color: #d32f2f;
+        border-color: #d32f2f;
+    }
+    
+    .btn-success {
+        background-color: #4caf50;
+        border-color: #4caf50;
+    }
+    
+    .btn-success:hover {
+        background-color: #388e3c;
+        border-color: #388e3c;
+    }
+    
+    .badge {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+    
+    .alert {
+        background-color: rgba(33, 150, 243, 0.1);
+        color: #fff;
+    }
+    
+    .img-thumbnail {
+        padding: 0.25rem;
+    }
+    
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+        
+        .card-footer .d-flex {
+            flex-direction: column;
+        }
+        
+        .btn {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn:last-child {
+            margin-bottom: 0;
+        }
+    }
+</style>
+{% endblock body %}

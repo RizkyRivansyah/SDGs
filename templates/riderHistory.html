@@ -1,0 +1,38 @@
+{% extends 'riderHome.html' %}
+{% block title %}All Previous Orders{% endblock title %}
+{% block body %}
+<div class="container my-5">
+    {% if orderDetails|length != 0 %}
+        <h1 class="text-center mb-4 text-danger">All Available Orders</h1>
+        <div class="row g-4">
+            {% for i in range(orderDetails|length) %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card bg-dark text-white shadow-sm h-100">
+                    <div class="card-header text-center text-warning">
+                        <h5>OrderID#{{ orderDetails[i][2] }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="text-center text-danger mb-3">{{ orderDetails[i][0] }} {{ orderDetails[i][1] }}</h6>
+                        <p class="text-center text-info fst-italic">{{ orderDetails[i][10] }}</p>
+                        <div class="d-flex align-items-center">
+                            <img src="/static/images/{{ orderDetails[i][5] }}" alt="Food" class="img-fluid rounded" style="max-height: 120px; object-fit: cover;">
+                            <div class="ms-3">
+                                <p class="mb-2"><strong>Food Title:</strong> {{ orderDetails[i][3] }}</p>
+                                <p class="mb-2"><strong>Food Price:</strong> Rs. {{ orderDetails[i][4] }}</p>
+                                <p class="mb-0"><strong>Quantity:</strong> {{ orderDetails[i][7] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <p class="mb-1"><strong>Date Ordered:</strong> {{ orderDetails[i][6] }}</p>
+                        <p class="mb-0"><strong>Bill Amount:</strong> Rs. {{ orderDetails[i][8] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-danger fs-5 mt-5">You haven't made any orders yet.</p>
+    {% endif %}
+</div>
+{% endblock body %}

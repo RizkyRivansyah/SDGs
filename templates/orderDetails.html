@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Ordered{% endblock title %}
+{% block body %}
+    <main class="py-5 my-5">
+        {% if orderDetails|length != 0 %}
+            <h1 class="text-center mt-3 text-light">You have recently ordered</h1>
+            <div class="orderDetails container mt-4">
+                {% if getFlag == false %}
+                    <div class="alert alert-danger text-center" role="alert">
+                        Invalid credentials provided
+                    </div>
+                {% endif %}
+                <table class="table table-dark table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Food Title</th>
+                            <th>Image</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Date Ordered</th>
+                            <th>Bill Amount</th>
+                            <th>Pay Number</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orderDetails %}
+                        <tr>
+                            <td>{{ order[0] }}</td>
+                            <td>{{ order[1] }}</td>
+                            <td><img src="/static/images/{{ order[3] }}" alt="" class="img-fluid" style="max-width: 100px;"></td>
+                            <td>{{ order[2] }}</td>
+                            <td>{{ order[5] }}</td>
+                            <td>{{ order[4] }}</td>
+                            <td>{{ order[6] }}</td>
+                            <td>{{ order[7] }}</td>
+                            <td><span class="badge {% if order[8] == 'Issued' %}bg-warning{% elif order[8] == 'Delivered' %}bg-success{% else %}bg-danger{% endif %}">{{ order[8] }}</span></td>
+                            <td>
+                                {% if order[8] != "Issued" %}
+                                <a href="/review/{{ order[0] }}" class="btn btn-sm btn-danger">Review Food</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center text-white fs-4 mt-5">You haven't ordered anything yet.</p>
+        {% endif %}
+    </main>
+{% endblock body %}
+

@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --main-color: #f12424;
+    --black: #13131a;
+    --bg: #010103;
+    --border: .1rem solid rgba(255, 255, 255, .3);
+    --primary-color: #ff4136;
+    --secondary-color: #ffdc00;
+    --bg-dark: #121212;
+    --bg-darker: #1e1e1e;
+    --text-light: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s linear;
+}
+
+body {
+    background: var(--bg)
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+    width: .8rem;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 5rem;
+}
+
+.navbar {
+    background-color: rgba(30, 30, 30, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--primary-color) !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--text-light) !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+.hero {
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.6);
+    background: url('/static/images/hero.png') no-repeat center;
+    background-size: cover;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.danger {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.danger:hover {
+    background-color: #e60000;
+    border-color: #e60000;
+}
+
+.outline-danger {
+    border-color: var(--primary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.outline-danger:hover {
+    border-color: var(--primary-color);
+    background-color: #e60000;
+    color: white;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.card {
+    background-color: var(--bg-darker);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 2px 20px black;
+}
+
+.bg-light {
+    background-color: var(--bg-darker) !important;
+}
+
+.dropdown-menu {
+    background-color: var(--bg-darker);
+}
+
+.dropdown-item {
+    color: var(--text-light);
+}
+
+.dropdown-item:hover {
+    background-color: var(--bg-dark);
+    color: var(--primary-color);
+}

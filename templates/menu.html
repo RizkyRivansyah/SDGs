@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Menu{% endblock title %}
+
+{% block body %}
+    <div class="container my-5 pb-5">
+        <div class="text-center mb-5 pt-5 pb-5">
+            <h2 class="text-light mb-4">Our Menu</h2>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/menu/filterByPrice" class="btn outline-danger">
+                    <i class="bi bi-sort-numeric-down me-2"></i>Filter by Price
+                </a>
+                <a href="/menu/filterByRating" class="btn outline-danger">
+                    <i class="bi bi-star-fill me-2"></i>Filter by Rating
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for food in foods %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 bg-dark text-white border-0 rounded-4 shadow-lg overflow-hidden">
+                    <div class="position-relative">
+                        <img src="/static/images/{{ food[1] }}" class="card-img-top" alt="{{ food[3] }}">
+                        <div class="position-absolute top-0 end-0 m-3">
+                            <span class="badge danger rounded-pill fs-6 px-3 py-2">
+                                {% for foodno, rate, count in foodnosAndRates %}
+                                    {% if food[0] == foodno %}
+                                        {{ "%.1f"|format(rate) }} <i class="bi bi-star-fill ms-1"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title text-danger mb-3">{{ food[3] }}</h4>
+                        <h5 class="text-warning mb-3">Rp. {{ "{:,}".format(food[2]) }}</h5>
+                        {% for foodno, rate, count in foodnosAndRates %}
+                            {% if food[0] == foodno %}
+                                <p class="card-text text-light">({{ count }} reviews)</p>
+                            {% endif %}
+                        {% endfor %}
+                        <a href="/menu/{{ food[0] }}" class="btn danger mt-auto">
+                            <i class="bi bi-cart-plus me-2"></i>Order Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock body %}
+
+

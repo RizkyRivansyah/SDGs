@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+<section class="hero">
+    <div class="container text-center">
+        <h1 class="display-4 mb-4 text-light">Welcome to UTYFOOD</h1>
+        <p class="lead mb-4">Your one-stop destination for delicious meals delivered right to your doorstep.</p>
+        <a href="{{ url_for('products') }}" class="btn danger text-white btn-lg">Explore Our Menu</a>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 text-light">Why Choose UTYFOOD?</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-clock feature-icon mb-3"></i>
+                        <h5 class="card-title text-light">Fast Delivery</h5>
+                        <p class="card-text text-light">We ensure your food reaches you hot and fresh, right when you need it.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-heart feature-icon mb-3"></i>
+                        <h5 class="card-title text-light">Quality Ingredients</h5>
+                        <p class="card-text text-light">We use only the finest ingredients to prepare your meals with love and care.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <div class="card-body text-center">
+                        <i class="bi bi-cash-coin feature-icon mb-3"></i>
+                        <h5 class="card-title text-light">Great Value</h5>
+                        <p class="card-text text-light">Enjoy delicious meals at competitive prices, giving you the best value for your money.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5 text-light">Our Popular Dishes</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <img src="{{ url_for('static', filename='images/pizza_1.png') }}" class="card-img-top" alt="Popular Dish 1">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Spicy Chicken Burger</h5>
+                        <p class="card-text text-light">A juicy chicken patty with our special spicy sauce and fresh veggies.</p>
+                        <a href="#" class="btn danger text-white">Order Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <img src="{{ url_for('static', filename='images/bur-par.jpg') }}" class="card-img-top" alt="Popular Dish 2">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Veggie Supreme Pizza</h5>
+                        <p class="card-text text-light">Loaded with fresh vegetables on our signature thin crust.</p>
+                        <a href="#" class="btn danger text-white">Order Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0">
+                    <img src="{{ url_for('static', filename='images/roll.png') }}" class="card-img-top" alt="Popular Dish 3">
+                    <div class="card-body">
+                        <h5 class="card-title text-light">Chocolate Lava Cake</h5>
+                        <p class="card-text text-light">Indulge in our rich, gooey chocolate lava cake for a perfect dessert.</p>
+                        <a href="#" class="btn danger text-white">Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}
